@@ -1,0 +1,50 @@
+section .data
+    hello db "Hello, Holberton",0
+    format db "%s",10,0
+
+section .text
+    global main
+    extern printf
+
+main:
+    push rbp
+    mov rdi, format
+    mov rsi, hello
+    call printf
+    pop rbp
+    ret
+Explanation:
+
+In the .data section, we define the null-terminated string "Hello, Holberton" and the format string "%s",10,0, where %s represents a placeholder for a string and 10 represents the newline character.
+
+In the .text section, we define the main function as the entry point. We start by pushing the base pointer (rbp) onto the stack as per the standard function prologue.
+
+We load the format string address into the rdi register (first argument register for x86_64 ABI) and the address of the hello string into the rsi register (second argument register).
+
+We then call the printf function.
+
+After printing, we restore the stack frame by popping the value of rbp from the stack.
+
+Finally, we return from the main function using the ret instruction.
+
+To compile and link the program, you can use the following commands:
+
+shell
+Copy code
+nasm -f elf64 program.asm -o program.o
+gcc -nostartfiles -o program program.o -lm -lc
+This will create an executable file named "program" which, when run, will print "Hello, Holberton" followed by a newline using the printf function. Please note that the exact commands may vary depending on your system and setup.
+
+
+
+
+User
+are we writting as a code or bash
+ChatGPT
+The code I provided is written in x86_64 assembly language and is meant to be assembled and linked to create an executable program. The code itself is not Bash script; it's assembly code that follows the x86_64 architecture.
+
+You can save the assembly code into a file with a .asm extension, for example, program.asm. Then, you can use the NASM assembler to assemble it and the GCC compiler to link it, creating an executable program.
+
+The provided compilation commands (nasm and gcc) are meant to be run in a command-line terminal or shell, not written as code within a programming language.
+
+In summary, the provided code is assembly language code, and the compilation commands are shell commands used to build an executable program from that assembly code.
