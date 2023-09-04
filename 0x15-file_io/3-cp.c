@@ -29,7 +29,6 @@ int main(int argc, char *argv[])
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't read from file %s\n", argv[1]);
-			free(buffer);
 			exit(98);
 		}
 
@@ -38,15 +37,13 @@ int main(int argc, char *argv[])
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't write to %s\n", argv[2]);
-			free(buffer);
 			exit(99);
 		}
 		r = read(from, buffer, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
 	} while (r > 0);
 
-	free(buffer);
-	close_file(from);
-	close_file(to);
+	close(from);
+	close(to);
 	return (0);
 }
